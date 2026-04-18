@@ -1,0 +1,3 @@
+config/db.php
+chat/uploads/*
+!chat/uploads/.gitkeep
