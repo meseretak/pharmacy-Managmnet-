@@ -12,6 +12,7 @@ $cartData      = json_decode($_POST['cart_data'] ?? '[]', true);
 $customerName  = trim($_POST['customer_name'] ?? 'Walk-in Customer') ?: 'Walk-in Customer';
 $customerPhone = trim($_POST['customer_phone'] ?? '');
 $discount      = max(0, (float)($_POST['discount'] ?? 0));
+$taxRate       = max(0, (float)($_POST['tax_rate'] ?? 0));
 $paymentMethod = trim($_POST['payment_method'] ?? 'cash');
 if (!in_array($paymentMethod, ['cash','card','chapa','telebirr','mobile_money'])) {
     $paymentMethod = 'cash';
@@ -59,6 +60,8 @@ try {
     }
 
     $total         = max(0, $subtotal - $discount);
+    $taxAmount     = $taxRate > 0 ? round($total * ($taxRate / 100), 2) : 0;
+    $total         = $total + $taxAmount;
     $invoiceNumber = generateInvoiceNumber();
 
     // For online payments: status = pending, paid_amount = 0
@@ -69,13 +72,13 @@ try {
     $stmt = $pdo->prepare("
         INSERT INTO sales
             (invoice_number, branch_id, user_id, customer_name, customer_phone,
-             total_amount, discount, paid_amount, payment_method, status)
-        VALUES (?,?,?,?,?,?,?,?,?,?)
+             total_amount, discount, tax_amount, tax_rate, paid_amount, payment_method, status)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
     ");
     $stmt->execute([
         $invoiceNumber, $branchId, $_SESSION['user_id'],
         $customerName, $customerPhone,
-        $total, $discount, $paidAmount, $paymentMethod, $saleStatus
+        $total, $discount, $taxAmount, $taxRate, $paidAmount, $paymentMethod, $saleStatus
     ]);
     $saleId = $pdo->lastInsertId();
 

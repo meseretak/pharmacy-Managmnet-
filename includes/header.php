@@ -72,6 +72,9 @@ try {
             <a href="/pharmacy/sales/index.php" class="<?= basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['PHP_SELF'], '/sales/') !== false ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-receipt"></i></span> Sales History
             </a>
+            <a href="/pharmacy/customers/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/customers/') !== false ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-users"></i></span> Customers
+            </a>
             <a href="/pharmacy/chat/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/chat/') !== false ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-comments"></i></span> Messages
                 <?php
@@ -92,11 +95,22 @@ try {
             <a href="/pharmacy/medicines/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/medicines/') !== false ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-pills"></i></span> Medicines
             </a>
-            <a href="/pharmacy/stock/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/stock/') !== false ? 'active' : '' ?>">
+            <a href="/pharmacy/stock/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/stock/index') !== false ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-boxes"></i></span> Stock
                 <?php if ($lowStockCount > 0): ?>
                 <span class="badge"><?= $lowStockCount ?></span>
                 <?php endif; ?>
+            </a>
+            <?php if (isBranchManager()): ?>
+            <a href="/pharmacy/stock/adjustments.php" class="<?= strpos($_SERVER['PHP_SELF'], '/stock/adjustments') !== false ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-sliders-h"></i></span> Adjustments
+            </a>
+            <a href="/pharmacy/stock/transfers.php" class="<?= strpos($_SERVER['PHP_SELF'], '/stock/transfers') !== false ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-exchange-alt"></i></span> Transfers
+            </a>
+            <?php endif; ?>
+            <a href="/pharmacy/prescriptions/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/prescriptions/') !== false ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-file-medical"></i></span> Prescriptions
             </a>
             <a href="/pharmacy/purchases/index.php" class="<?= strpos($_SERVER['PHP_SELF'], '/purchases/') !== false ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-truck"></i></span> Purchases
@@ -125,6 +139,11 @@ try {
             <a href="/pharmacy/reports/expiry.php" class="<?= strpos($_SERVER['PHP_SELF'], '/reports/expiry') !== false ? 'active' : '' ?>">
                 <span class="nav-icon"><i class="fas fa-calendar-times"></i></span> Expiry Report
             </a>
+            <?php if (isSuperAdmin()): ?>
+            <a href="/pharmacy/reports/profit_loss.php" class="<?= strpos($_SERVER['PHP_SELF'], '/reports/profit_loss') !== false ? 'active' : '' ?>">
+                <span class="nav-icon"><i class="fas fa-file-invoice-dollar"></i></span> Profit & Loss
+            </a>
+            <?php endif; ?>
         </nav>
     </div>
 
@@ -199,3 +218,14 @@ try {
     </header>
     <!-- PAGE CONTENT -->
     <main class="page-content">
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<script>
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+}
+document.getElementById('menuToggle').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+});
+</script>

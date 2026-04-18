@@ -108,6 +108,21 @@ require_once '../includes/header.php';
     <a href="/pharmacy/sales/new.php" class="btn btn-primary"><i class="fas fa-plus"></i> New Sale</a>
     <a href="/pharmacy/sales/index.php" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Back to Sales</a>
     <button onclick="window.print()" class="btn btn-info"><i class="fas fa-print"></i> Print Invoice</button>
+    <?php if ($sale['status'] === 'completed' && isBranchManager()): ?>
+    <?php
+    $alreadyRefunded = $pdo->prepare("SELECT id FROM sale_refunds WHERE sale_id=? AND status='approved'");
+    $alreadyRefunded->execute([$sale['id']]);
+    if (!$alreadyRefunded->fetch()):
+    ?>
+    <a href="/pharmacy/sales/refund.php?id=<?= $sale['id'] ?>" class="btn btn-danger"><i class="fas fa-undo"></i> Process Refund</a>
+    <?php endif; ?>
+    <?php endif; ?>
+    <?php if (isset($_GET['refunded'])): ?>
+    <div class="alert alert-success" style="margin:0;padding:8px 16px;"><i class="fas fa-check-circle"></i> Refund processed successfully.</div>
+    <?php endif; ?>
+    <?php if (isset($_GET['msg']) && $_GET['msg'] === 'already_refunded'): ?>
+    <div class="alert alert-warning" style="margin:0;padding:8px 16px;">This sale has already been refunded.</div>
+    <?php endif; ?>
 </div>
 
 <div style="max-width:750px;" id="printArea">
@@ -197,6 +212,12 @@ require_once '../includes/header.php';
                     <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;">
                         <span style="color:var(--text-muted);">Discount:</span>
                         <span style="color:var(--danger);">- <?= formatCurrency($sale['discount']) ?></span>
+                    </div>
+                    <?php endif; ?>
+                    <?php if (!empty($sale['tax_amount']) && $sale['tax_amount'] > 0): ?>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;">
+                        <span style="color:var(--text-muted);">Tax (<?= $sale['tax_rate'] ?? 0 ?>%):</span>
+                        <span>+ <?= formatCurrency($sale['tax_amount']) ?></span>
                     </div>
                     <?php endif; ?>
                     <div style="display:flex;justify-content:space-between;padding:10px 0;font-size:18px;font-weight:700;border-top:2px solid var(--border);color:var(--primary);">

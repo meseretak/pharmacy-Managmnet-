@@ -129,7 +129,7 @@ function checkAndCreateAlerts($pdo, $branchId = null) {
 
 // Chapa API
 define('CHAPA_BASE_URL', 'https://api.chapa.co/v1');
-define('CHAPA_TEST_SECRET', 'CHASECK_TEST-sF3chNnWmtHk2rLKSB3jB3lwBNgq38EF');
+define('CHAPA_TEST_SECRET', getenv('CHAPA_SECRET_KEY') ?: '');
 
 function chapaInitialize($amount, $email, $firstName, $lastName, $phone, $txRef, $callbackUrl, $returnUrl, $secretKey = null) {
     $key = $secretKey ?: CHAPA_TEST_SECRET;

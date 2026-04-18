@@ -133,13 +133,9 @@ pharmacy/
 
 ---
 
-## Default Login Credentials
+## Default Login
 
-| Role | Email | Password |
-|------|-------|----------|
-| Super Admin | admin@pharmacy.com | admin123 |
-| Branch Manager | manager1@pharmacy.com | admin123 |
-| Pharmacist | pharma1@pharmacy.com | admin123 |
+Default credentials are listed in `QUICKSTART.md` (not tracked in version control).
 
 > Change all passwords immediately after first login.
 

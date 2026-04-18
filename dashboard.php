@@ -78,7 +78,7 @@ require_once 'includes/header.php';
 <?php endif; ?>
 
 <!-- TOP STAT CARDS -->
-<div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
+<div class="stats-grid grid-4" style="margin-bottom:20px;">
     <div class="stat-card green">
         <div class="stat-icon" style="background:#e8f8f0;font-size:22px;">💰</div>
         <div class="stat-info">
@@ -119,7 +119,7 @@ require_once 'includes/header.php';
 </div>
 
 <!-- SECOND ROW STATS -->
-<div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
+<div class="stats-grid grid-4" style="margin-bottom:20px;">
     <a href="/pharmacy/medicines/index.php" style="text-decoration:none;">
         <div class="stat-card blue" style="cursor:pointer;">
             <div class="stat-icon" style="background:#e8f4fd;">💊</div>
@@ -147,7 +147,7 @@ require_once 'includes/header.php';
 </div>
 
 <!-- CHARTS ROW -->
-<div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:20px;">
+<div class="grid-charts" style="margin-bottom:20px;">
     <!-- Monthly Sales Chart -->
     <div class="card">
         <div class="card-header">
@@ -194,7 +194,7 @@ require_once 'includes/header.php';
 <?php endif; ?>
 
 <!-- DAILY REPORT TABLE -->
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+<div class="grid-2" style="margin-bottom:20px;">
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-calendar-day" style="color:var(--primary)"></i> Daily Sales Summary (Last 7 Days)</div>
@@ -250,7 +250,7 @@ require_once 'includes/header.php';
 </div>
 
 <!-- BOTTOM ROW: Low Stock + Expiry + Recent Sales -->
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+<div class="grid-3">
     <!-- Low Stock -->
     <div class="card">
         <div class="card-header">

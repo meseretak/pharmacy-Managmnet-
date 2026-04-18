@@ -136,6 +136,13 @@ require_once '../includes/header.php';
                 <div class="divider"></div>
                 <div class="pos-total-row"><span>Subtotal:</span><span id="subtotalDisplay"><?= formatCurrency(0) ?></span></div>
                 <div class="pos-total-row"><span>Discount:</span><span id="discountDisplay"><?= formatCurrency(0) ?></span></div>
+                <?php
+                $taxRate = (float)(shopSetting('tax_rate', 0));
+                ?>
+                <?php if ($taxRate > 0): ?>
+                <div class="pos-total-row"><span>Tax (<?= $taxRate ?>%):</span><span id="taxDisplay"><?= formatCurrency(0) ?></span></div>
+                <?php endif; ?>
+                <input type="hidden" name="tax_rate" value="<?= $taxRate ?>">
                 <div class="pos-total-row grand"><span>Total:</span><span id="totalDisplay"><?= formatCurrency(0) ?></span></div>
                 <button type="submit" class="btn btn-success w-100 mt-2" style="justify-content:center;padding:14px;font-size:15px;" id="checkoutBtn" disabled>
                     <i class="fas fa-check-circle"></i> Complete Sale
@@ -230,10 +237,14 @@ function renderCart() {
 function updateTotals() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const discount = parseFloat(document.getElementById('discountInput').value) || 0;
-    const total = Math.max(0, subtotal - discount);
+    const taxRate = <?= $taxRate ?>;
+    const taxable = Math.max(0, subtotal - discount);
+    const tax = taxRate > 0 ? taxable * (taxRate / 100) : 0;
+    const total = taxable + tax;
 
     document.getElementById('subtotalDisplay').textContent = formatCurrency(subtotal);
     document.getElementById('discountDisplay').textContent = formatCurrency(discount);
+    if (document.getElementById('taxDisplay')) document.getElementById('taxDisplay').textContent = formatCurrency(tax);
     document.getElementById('totalDisplay').textContent = formatCurrency(total);
     document.getElementById('cartData').value = JSON.stringify(cart);
 }
