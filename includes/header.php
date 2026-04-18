@@ -8,10 +8,10 @@ if (!defined('PAGE_SUBTITLE')) define('PAGE_SUBTITLE', '');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= PAGE_TITLE ?> - <?= APP_NAME ?></title>
-    <link rel="icon" type="image/svg+xml" href="/pharmacy/assets/img/favicon.svg?v=2">
-    <link rel="shortcut icon" type="image/svg+xml" href="/pharmacy/assets/img/favicon.svg?v=2">
-    <link rel="apple-touch-icon" href="/pharmacy/assets/img/logo.svg">
-    <link rel="stylesheet" href="/pharmacy/assets/css/style.css?v=2">
+    <link rel="icon" type="image/svg+xml" href="/pharmacy/assets/img/favicon.svg?v=4">
+    <link rel="shortcut icon" type="image/svg+xml" href="/pharmacy/assets/img/favicon.svg?v=4">
+    <link rel="apple-touch-icon" href="/pharmacy/assets/img/logo.svg?v=4">
+    <link rel="stylesheet" href="/pharmacy/assets/css/style.css?v=4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
