@@ -214,3 +214,5 @@ See `QUICKSTART.md` for local setup instructions.
 ## License
 
 MIT — free to use and modify.
+![ft
+]g.hb vgh ](image.png)
