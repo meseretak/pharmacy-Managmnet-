@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Patient name and at least one medicine are required.';
     } else {
         $pdo->beginTransaction();
-        $pdo->prepare("INSERT INTO prescriptions (customer_name,customer_phone,doctor_name,doctor_license,hospital_clinic,issue_date,expiry_date,branch_id,user_id,notes) VALUES (?,?,?,?,?,?,?,?,?,?)")
-            ->execute([$data['customer_name'],$data['customer_phone'],$data['doctor_name'],$data['doctor_license'],$data['hospital'],$data['issue_date'],$data['expiry_date'],$branchId,$_SESSION['user_id'],$data['notes']]);
+        $pdo->prepare("INSERT INTO prescriptions (customer_name,customer_phone,doctor_name,doctor_license,hospital_clinic,issue_date,expiry_date,user_id,notes) VALUES (?,?,?,?,?,?,?,?,?)")
+            ->execute([$data['customer_name'],$data['customer_phone'],$data['doctor_name'],$data['doctor_license'],$data['hospital'],$data['issue_date'],$data['expiry_date'],$_SESSION['user_id'],$data['notes']]);
         $pid = $pdo->lastInsertId();
         foreach ($items as $k => $medId) {
             if (!$medId) continue;

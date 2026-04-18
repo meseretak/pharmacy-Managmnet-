@@ -69,7 +69,7 @@ require_once '../includes/header.php';
 </div>
 
 <!-- Summary Cards -->
-<div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
+<div class="grid-4" style="margin-bottom:20px;">
     <div class="stat-card green"><div class="stat-icon">💰</div><div class="stat-info"><div class="value"><?= formatCurrency($summary['total_revenue']) ?></div><div class="label">Total Revenue</div></div></div>
     <div class="stat-card blue"><div class="stat-icon">🧾</div><div class="stat-info"><div class="value"><?= number_format($summary['total_transactions']) ?></div><div class="label">Transactions</div></div></div>
     <div class="stat-card orange"><div class="stat-icon">📊</div><div class="stat-info"><div class="value"><?= formatCurrency($summary['avg_sale']) ?></div><div class="label">Avg Sale Value</div></div></div>

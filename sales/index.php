@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once '../config/db.php';
 requireLogin();
 if (!defined('PAGE_TITLE'))    define('PAGE_TITLE', 'Sales History');
@@ -60,10 +60,10 @@ require_once '../includes/header.php';
 <a href="/pharmacy/sales/index.php" class="btn btn-outline">Reset</a>
 </form></div></div>
 
-<div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px;">
-<div class="stat-card green"><div class="stat-icon" style="background:#e8f8f0;">💰</div><div class="stat-info"><div class="value" style="font-size:20px;"><?= formatCurrency($totalRevenue) ?></div><div class="label">Total Revenue</div></div></div>
-<div class="stat-card blue"><div class="stat-icon" style="background:#e8f4fd;">🧾</div><div class="stat-info"><div class="value"><?= number_format($totalCount) ?></div><div class="label">Transactions</div></div></div>
-<div class="stat-card orange"><div class="stat-icon" style="background:#fef9e7;">💊</div><div class="stat-info"><div class="value"><?= number_format($totalItems) ?></div><div class="label">Items Sold</div></div></div>
+<div class="grid-3" style="margin-bottom:20px;">
+<div class="stat-card green"><div class="stat-icon" style="background:#e8f8f0;">??</div><div class="stat-info"><div class="value" style="font-size:20px;"><?= formatCurrency($totalRevenue) ?></div><div class="label">Total Revenue</div></div></div>
+<div class="stat-card blue"><div class="stat-icon" style="background:#e8f4fd;">??</div><div class="stat-info"><div class="value"><?= number_format($totalCount) ?></div><div class="label">Transactions</div></div></div>
+<div class="stat-card orange"><div class="stat-icon" style="background:#fef9e7;">??</div><div class="stat-info"><div class="value"><?= number_format($totalItems) ?></div><div class="label">Items Sold</div></div></div>
 </div>
 
 <div class="card">
@@ -74,13 +74,13 @@ require_once '../includes/header.php';
 <div class="table-responsive"><table>
 <thead><tr><th>Invoice</th><th>Customer</th><?php if(isSuperAdmin()):?><th>Branch</th><?php endif;?><th>Sold By</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
 <tbody>
-<?php if(empty($sales)):?><tr><td colspan="10"><div class="empty-state"><div class="empty-icon">🧾</div><p>No sales found</p></div></td></tr>
+<?php if(empty($sales)):?><tr><td colspan="10"><div class="empty-state"><div class="empty-icon">??</div><p>No sales found</p></div></td></tr>
 <?php else: foreach($sales as $sale):
 $ic=$pdo->prepare("SELECT COUNT(*) FROM sale_items WHERE sale_id=?"); $ic->execute([$sale['id']]); $ic=$ic->fetchColumn();
 $pm=trim($sale['payment_method']??'');
 $pmColors=['cash'=>'badge-success','card'=>'badge-info','chapa'=>'badge-success','telebirr'=>'badge-warning','mobile_money'=>'badge-secondary'];
 $pmClass=$pm?($pmColors[$pm]??'badge-secondary'):'badge-secondary';
-$pmLabel=$pm?ucfirst(str_replace('_',' ',$pm)):'—';
+$pmLabel=$pm?ucfirst(str_replace('_',' ',$pm)):'�';
 ?>
 <tr>
 <td><a href="/pharmacy/sales/view.php?id=<?= $sale['id'] ?>" style="color:var(--primary);font-weight:600;"><?= htmlspecialchars($sale['invoice_number']) ?></a></td>
@@ -98,9 +98,9 @@ $pmLabel=$pm?ucfirst(str_replace('_',' ',$pm)):'—';
 </tbody></table></div>
 <?php if($totalPages>1):?>
 <div class="pagination">
-<?php if($page>1):?><a href="?page=<?=$page-1?>&search=<?=urlencode($search)?>&date_from=<?=$dateFrom?>&date_to=<?=$dateTo?>&branch_id=<?=$branchId?>&staff_id=<?=$staffId?>">‹ Prev</a><?php endif;?>
+<?php if($page>1):?><a href="?page=<?=$page-1?>&search=<?=urlencode($search)?>&date_from=<?=$dateFrom?>&date_to=<?=$dateTo?>&branch_id=<?=$branchId?>&staff_id=<?=$staffId?>">� Prev</a><?php endif;?>
 <?php for($p=max(1,$page-2);$p<=min($totalPages,$page+2);$p++):?><a href="?page=<?=$p?>&search=<?=urlencode($search)?>&date_from=<?=$dateFrom?>&date_to=<?=$dateTo?>&branch_id=<?=$branchId?>&staff_id=<?=$staffId?>" class="<?=$p==$page?'active':''?>"><?=$p?></a><?php endfor;?>
-<?php if($page<$totalPages):?><a href="?page=<?=$page+1?>&search=<?=urlencode($search)?>&date_from=<?=$dateFrom?>&date_to=<?=$dateTo?>&branch_id=<?=$branchId?>&staff_id=<?=$staffId?>">Next ›</a><?php endif;?>
+<?php if($page<$totalPages):?><a href="?page=<?=$page+1?>&search=<?=urlencode($search)?>&date_from=<?=$dateFrom?>&date_to=<?=$dateTo?>&branch_id=<?=$branchId?>&staff_id=<?=$staffId?>">Next �</a><?php endif;?>
 </div>
 <?php endif;?>
 </div>

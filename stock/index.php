@@ -69,7 +69,7 @@ require_once '../includes/header.php';
 ?>
 
 <!-- Quick Filter Cards -->
-<div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
+<div class="grid-4" style="margin-bottom:20px;">
     <a href="?filter=" style="text-decoration:none;">
         <div class="stat-card blue" style="<?= !$filter ? 'border:2px solid var(--info)' : '' ?>">
             <div class="stat-icon">📦</div>

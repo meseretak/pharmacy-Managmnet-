@@ -38,7 +38,7 @@ require_once '../includes/header.php';
 
 <a href="/pharmacy/branches/index.php" class="btn btn-outline btn-sm mb-2"><i class="fas fa-arrow-left"></i> Back to Branches</a>
 
-<div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin:15px 0 20px;">
+<div class="grid-4" style="margin:15px 0 20px;">
     <div class="stat-card green"><div class="stat-icon">💰</div><div class="stat-info"><div class="value"><?= formatCurrency($todaySales) ?></div><div class="label">Today's Sales</div></div></div>
     <div class="stat-card blue"><div class="stat-icon">📈</div><div class="stat-info"><div class="value"><?= formatCurrency($monthSales) ?></div><div class="label">This Month</div></div></div>
     <div class="stat-card blue"><div class="stat-icon">📦</div><div class="stat-info"><div class="value"><?= number_format($totalStock) ?></div><div class="label">Total Stock</div></div></div>

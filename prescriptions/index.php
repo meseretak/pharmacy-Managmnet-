@@ -16,10 +16,8 @@ if ($status) { $where[] = 'p.status = ?'; $params[] = $status; }
 $whereStr = implode(' AND ', $where);
 
 $prescriptions = $pdo->prepare("
-    SELECT p.*, b.name as branch_name, u.name as created_by
+    SELECT p.*, 'N/A' as branch_name, 'N/A' as created_by
     FROM prescriptions p
-    LEFT JOIN branches b ON p.branch_id=b.id
-    JOIN users u ON p.user_id=u.id
     WHERE $whereStr ORDER BY p.created_at DESC LIMIT 100
 ");
 $prescriptions->execute($params);

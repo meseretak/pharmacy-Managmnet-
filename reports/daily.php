@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once '../config/db.php';
 requireLogin();
 
@@ -191,7 +191,7 @@ require_once '../includes/header.php';
 </div>
 
 <!-- 5 STAT CARDS -->
-<div class="stats-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:20px;">
+<div class="grid-4" style="margin-bottom:20px;">
   <div class="stat-card green">
     <div class="stat-icon" style="background:#e8f8f0;">&#x1F4B0;</div>
     <div class="stat-info"><div class="value" style="font-size:18px;"><?= formatCurrency($totals['revenue']) ?></div><div class="label">Total Revenue</div></div>

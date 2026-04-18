@@ -616,9 +616,6 @@ tbody tr:last-child td { border-bottom: none; }
     .stats-grid { grid-template-columns: 1fr !important; }
     .login-card { padding: 30px 20px; }
     .btn { font-size: 12px; padding: 7px 12px; }
-}    .stats-grid { grid-template-columns: 1fr !important; }
-    .login-card { padding: 30px 20px; }
-    .btn { font-size: 12px; padding: 7px 12px; }
 }
 
 /* ===== LOGIN PAGE ===== */

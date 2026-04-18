@@ -75,7 +75,7 @@ require_once '../includes/header.php';
     </div>
 </div>
 
-<div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px;">
+<div class="grid-4" style="margin-bottom:20px;">
     <div class="stat-card red"><div class="stat-icon">💀</div><div class="stat-info"><div class="value"><?= count($expired) ?></div><div class="label">Already Expired</div></div></div>
     <div class="stat-card red"><div class="stat-icon">🚨</div><div class="stat-info"><div class="value"><?= count($expiring7) ?></div><div class="label">Expiring in 7 Days</div></div></div>
     <div class="stat-card orange"><div class="stat-icon">⚠️</div><div class="stat-info"><div class="value"><?= count($expiring30) ?></div><div class="label">Expiring in 30 Days</div></div></div>
