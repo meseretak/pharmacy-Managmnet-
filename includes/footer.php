@@ -838,5 +838,8 @@ fetch('/pharmacy/chat/api.php?action=get_rooms')
 .then(d => { if (d.success) updateFloatBadge(d.rooms); });
 </script>
 <?php endif; ?>
+<footer style="text-align:center;padding:12px 20px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border);margin-top:20px;background:#fff;">
+    &copy; <?= date('Y') ?> <?= APP_NAME ?> &mdash; Developed by <strong>Meseret Akalu</strong>
+</footer>
 </body>
 </html>
