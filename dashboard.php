@@ -2,7 +2,7 @@
 require_once 'config/db.php';
 requireLogin();
 define('PAGE_TITLE', 'Dashboard');
-define('PAGE_SUBTITLE', isSuperAdmin() ? 'All Branches Overview nnn' : 'Branch Overview');
+define('PAGE_SUBTITLE', isSuperAdmin() ? 'All Branches Overview mmm' : 'Branch Overview');
 
 $branchId = getUserBranchId() ?? 1;
 $branchFilter = isSuperAdmin() ? '' : "AND s.branch_id = $branchId";
