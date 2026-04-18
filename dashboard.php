@@ -2,7 +2,7 @@
 require_once 'config/db.php';
 requireLogin();
 define('PAGE_TITLE', 'Dashboard');
-define('PAGE_SUBTITLE', isSuperAdmin() ? 'All Branches Overview' : 'Branch Overview');
+define('PAGE_SUBTITLE', isSuperAdmin() ? 'All Branches Overview mmm' : 'Branch Overview');
 
 $branchId = getUserBranchId() ?? 1;
 $branchFilter = isSuperAdmin() ? '' : "AND s.branch_id = $branchId";
@@ -57,7 +57,7 @@ require_once 'includes/header.php';
 <?php if (isSuperAdmin()): ?>
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
     <form method="GET" style="display:flex;gap:10px;align-items:center;">
-        <label style="font-weight:600;font-size:13px;">Filter by Branch mmm:</label>
+        <label style="font-weight:600;font-size:13px;">Filter by Branch:</label>
         <select name="branch_id" class="form-control" style="width:200px;" onchange="this.form.submit()">
             <option value="">All Branches</option>
             <?php foreach ($branches as $b): ?>
