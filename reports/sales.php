@@ -101,7 +101,7 @@ require_once '../includes/header.php';
 </div>
 
 <!-- Top Medicines -->
-<div class="card">
+<div class="card" style="margin-bottom:20px;">
     <div class="card-header"><div class="card-title"><i class="fas fa-trophy" style="color:var(--warning)"></i> Top Selling Medicines</div></div>
     <div class="table-responsive">
         <table>
@@ -120,6 +120,83 @@ require_once '../includes/header.php';
                     </td>
                 </tr>
                 <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php
+// Detailed transactions
+$transactions = $pdo->prepare("
+    SELECT sa.id, sa.invoice_number, sa.customer_name, sa.customer_phone, sa.total_amount,
+           sa.discount, sa.payment_method, sa.status, sa.created_at,
+           b.name as branch_name, u.name as pharmacist_name, r.name as pharmacist_role
+    FROM sales sa
+    JOIN branches b ON sa.branch_id = b.id
+    JOIN users u ON sa.user_id = u.id
+    JOIN roles r ON u.role_id = r.id
+    WHERE DATE(sa.created_at) BETWEEN ? AND ? AND sa.status='completed' $branchCond
+    ORDER BY sa.created_at DESC
+    LIMIT 100
+");
+$transactions->execute($params);
+$transactions = $transactions->fetchAll();
+?>
+<!-- Detailed Transactions -->
+<div class="card">
+    <div class="card-header">
+        <div class="card-title"><i class="fas fa-list" style="color:var(--info)"></i> Transaction Details</div>
+        <button onclick="window.print()" class="btn btn-outline btn-sm"><i class="fas fa-print"></i> Print</button>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Invoice</th>
+                    <th>Customer</th>
+                    <th>Branch</th>
+                    <th>Sold By (Pharmacist)</th>
+                    <th>Amount</th>
+                    <th>Discount</th>
+                    <th>Payment</th>
+                    <th>Date & Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($transactions)): ?>
+                <tr><td colspan="8"><div class="empty-state" style="padding:20px;"><div class="empty-icon">📊</div><p>No transactions in this period</p></div></td></tr>
+                <?php else: foreach ($transactions as $t): ?>
+                <tr>
+                    <td><a href="/pharmacy/sales/view.php?id=<?= $t['id'] ?>" style="font-weight:700;color:var(--primary);"><?= htmlspecialchars($t['invoice_number']) ?></a></td>
+                    <td>
+                        <strong><?= htmlspecialchars($t['customer_name']) ?></strong>
+                        <?php if ($t['customer_phone']): ?><div style="font-size:11px;color:var(--text-muted);"><?= htmlspecialchars($t['customer_phone']) ?></div><?php endif; ?>
+                    </td>
+                    <td>
+                        <span style="background:var(--primary-light);color:var(--primary);padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600;">
+                            <i class="fas fa-building" style="font-size:10px;"></i> <?= htmlspecialchars($t['branch_name']) ?>
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <div style="width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">
+                                <?= strtoupper(substr($t['pharmacist_name'],0,1)) ?>
+                            </div>
+                            <div>
+                                <div style="font-weight:600;font-size:12.5px;"><?= htmlspecialchars($t['pharmacist_name']) ?></div>
+                                <div style="font-size:10px;color:var(--text-muted);"><?= ucfirst(str_replace('_',' ',$t['pharmacist_role'])) ?></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><strong style="color:var(--primary)"><?= formatCurrency($t['total_amount']) ?></strong></td>
+                    <td><?= $t['discount'] > 0 ? '<span style="color:var(--danger);">-'.formatCurrency($t['discount']).'</span>' : '-' ?></td>
+                    <td><span class="badge badge-info"><?= ucfirst(str_replace('_',' ',$t['payment_method'])) ?></span></td>
+                    <td style="font-size:12px;">
+                        <strong><?= date('d M Y', strtotime($t['created_at'])) ?></strong>
+                        <div style="color:var(--text-muted);"><?= date('H:i', strtotime($t['created_at'])) ?></div>
+                    </td>
+                </tr>
+                <?php endforeach; endif; ?>
             </tbody>
         </table>
     </div>
